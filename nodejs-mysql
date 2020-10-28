@@ -1,0 +1,36 @@
+var http = require("http");
+var mysql = require('mysql'); 
+const os=require('os');  
+
+
+http.createServer(function (request, response) {  
+   // Send the HTTP header   
+   // HTTP Status: 200 : OK  
+   // Content Type: text/plain  
+   response.writeHead(200, {'Content-Type': 'text/plain'});  
+   // Send the response body as "Hello World"  
+   response.end('Hello Sani\n');  
+}).listen(8081);  
+// Console will print the message  
+console.log('Server running at http://127.0.0.1:8081/');  
+
+//console.error(new Error('Sani Testing error message.'));
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "testdb"	  
+});
+
+con.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+  
+  var sql = "INSERT INTO tbl_test (tst_name, tst_datetime) VALUES ('Sani Hyne', NOW())";
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+    console.log("1 record inserted");
+  });
+  
+  
+});
